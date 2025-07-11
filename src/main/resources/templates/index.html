@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Card App</title>
+    
+
+    <link 
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" 
+        rel="stylesheet"
+    />
+</head>
+<body>
+<div class="container my-5">
+
+    <h1 class="mb-4">Card App</h1>
+	<div th:if="${message}" class="alert alert-info alert-dismissible fade show" role="alert">
+	    <span th:text="${message}"></span>
+	    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	
+    <div class="card mb-4">
+        <div class="card-header">
+            Add Card
+        </div>
+        <div class="card-body">
+            <form th:action="@{/add}" method="post" class="row g-3"  >
+                <div class="col-md-4">
+                    <label class="form-label">Bank</label>
+                    <input type="text" name="bank" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Number</label>
+                    <input type="text" name="number" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Expiry</label>
+                    <input type="text" name="expiry" class="form-control" />
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            Upload CSV
+        </div>
+        <div class="card-body">
+            <form th:action="@{/upload}" method="post" enctype="multipart/form-data" class="d-flex align-items-center gap-2">
+                <input type="file" name="file" class="form-control" />
+                <button type="submit" class="btn btn-secondary">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <h2>Cards</h2>
+    <ul class="list-group">
+        <li class="list-group-item" 
+            th:each="c : ${cards}" 
+            th:text="${c.bankName + ' - ' + c.cardNumber + ' - ' + c.expiryDate}">
+        </li>
+    </ul>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
